@@ -70,22 +70,21 @@ public class HandlerV1_7_V1_18 extends SignHandler
             return;
         }
         //
-        String lowerCase = e.getLine(1).toLowerCase();
-        switch (lowerCase) {
-            case "up": {
-                e.setLine(1, "Up");
-                break;
-            }
-            case "down": {
-                e.setLine(1, "Down");
-                break;
-            }
-            default: {
-                e.setLine(0, ChatColor.RED + "[ERROR]");
-                this.msg(e.getPlayer(), this.invalidSignMessage);
-                return;
-            }
+        String compare = e.getLine(1);
+
+        String upFormatFormatted = ChatColor.stripColor(Color.c(elevatorUpFormat));
+        String downFormatFormatted = ChatColor.stripColor(Color.c(elevatorDownFormat));
+
+        if(matchLowercase ? upFormatFormatted.equalsIgnoreCase(compare) : upFormatFormatted.equals(compare)){
+            e.setLine(1, Color.c(elevatorUpFormat));
+        }else if(matchLowercase ? downFormatFormatted.equalsIgnoreCase(compare) : downFormatFormatted.equals(compare)){
+            e.setLine(1, Color.c(elevatorDownFormat));
+        }else{
+            e.setLine(0, ChatColor.RED + "[ERROR]");
+            this.msg(e.getPlayer(), this.invalidSignMessage);
+            return;
         }
+
         e.setLine(0, Color.c(this.elevatorLineFormat));
         if (!this.floorsEnabled || e.getLine(2) == null || e.getLine(2).isEmpty()) {
             this.sendSound(e.getPlayer(), this.onCreateSound);

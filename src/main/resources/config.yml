@@ -15,3 +15,6 @@ permissions:
 floors-enabled: true
 max-distance-away: 5.0
 elevator-line-format: '&9[Elevator]'
+up-keyword: 'Up'
+down-keyword: 'Down'
+match-updown-lowercase: true
