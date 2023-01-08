@@ -54,6 +54,12 @@ public abstract class SignHandler implements Listener, CommandExecutor
     protected String reloadPermission;
     @Configurable(name = "elevator-line-format")
     protected String elevatorLineFormat;
+    @Configurable(name = "up-keyword")
+    protected String elevatorUpFormat;
+    @Configurable(name = "down-keyword")
+    protected String elevatorDownFormat;
+    @Configurable(name = "match-updown-lowercase")
+    protected boolean matchLowercase;
     @Configurable(name = "floors-enabled")
     protected boolean floorsEnabled;
     @Configurable(name = "max-distance-away")
@@ -302,7 +308,7 @@ public abstract class SignHandler implements Listener, CommandExecutor
             }
             String line2 = sign.getLine(2);
             this.spaces = ((floorsEnabled && line2 != null && !line2.equals("")) ? Integer.parseInt(line2) : 1);
-            this.direction = Direction.valueOf(sign.getLine(1).toUpperCase());
+            this.direction = getDirectionFromString(sign.getLine(1));
             this.signLocation = sign.getLocation();
         }
         
@@ -317,6 +323,15 @@ public abstract class SignHandler implements Listener, CommandExecutor
         public int getSpaces() {
             return this.spaces;
         }
+    }
+
+    protected final Direction getDirectionFromString(String str){
+        if(str.equals(Color.c(elevatorUpFormat)))
+            return Direction.UP;
+        else if(str.equals(Color.c(elevatorDownFormat)))
+            return Direction.DOWN;
+        else
+            throw new IllegalArgumentException();
     }
     
     protected enum Direction
