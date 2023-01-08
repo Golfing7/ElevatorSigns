@@ -5,7 +5,7 @@ package com.golfing8.elevatorsigns;
  */
 public enum Version
 {
-    UNKNOWN(-1),
+    UNKNOWN(100),
     v1_7(7),
     v1_8(8), 
     v1_9(9), 
@@ -18,6 +18,7 @@ public enum Version
     v1_16(16), 
     v1_17(17),
     v1_18(18),
+    v1_19(19),
     ;
     
     private final int value;
