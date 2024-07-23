@@ -1,5 +1,7 @@
 package com.golfing8.elevatorsigns;
 
+import org.bukkit.Bukkit;
+
 /**
  * Gets the server version from a package name.
  */
@@ -19,6 +21,8 @@ public enum Version
     v1_17(17),
     v1_18(18),
     v1_19(19),
+    v1_20(20),
+    v1_21(21),
     ;
     
     private final int value;
@@ -36,10 +40,17 @@ public enum Version
     }
     
     public static Version fromBukkitPackageName(String name) {
-        String[] split = name.split("_R");
+        String bukkitVersion = Bukkit.getBukkitVersion();
+        String version = bukkitVersion.substring(0, bukkitVersion.indexOf("-"));
+        String[] split = version.split("\\.");
+        int major = Integer.parseInt(String.valueOf(split[1]));
 
         try{
-            return valueOf(split[0].toLowerCase());
+            for (Version v : Version.values()) {
+                if (v.value == major)
+                    return v;
+            }
+            return UNKNOWN;
         }catch(IllegalArgumentException exc)
         {
             return UNKNOWN;
