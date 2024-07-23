@@ -1,7 +1,10 @@
 package com.golfing8.elevatorsigns.signhandler;
 
 import com.golfing8.elevatorsigns.Color;
+import com.golfing8.elevatorsigns.ElevatorSignsRevamped;
+import com.golfing8.elevatorsigns.Version;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.Location;
@@ -89,6 +92,8 @@ public class HandlerV1_7_V1_18 extends SignHandler
         if (!this.floorsEnabled || e.getLine(2) == null || e.getLine(2).isEmpty()) {
             this.sendSound(e.getPlayer(), this.onCreateSound);
             this.msg(e.getPlayer(), this.createMessage);
+            if (ElevatorSignsRevamped.getRunningVersion().isAtOrAfter(Version.v1_20))
+                ((Sign) e.getBlock().getState()).setWaxed(true);
             return;
         }
         try {
@@ -98,6 +103,8 @@ public class HandlerV1_7_V1_18 extends SignHandler
             }
             this.sendSound(e.getPlayer(), this.onCreateSound);
             this.msg(e.getPlayer(), this.createMessage);
+            if (ElevatorSignsRevamped.getRunningVersion().isAtOrAfter(Version.v1_20))
+                ((Sign) e.getBlock().getState()).setWaxed(true);
         }
         catch (NumberFormatException ignored) {
             e.setLine(0, ChatColor.RED + "[ERROR]");
